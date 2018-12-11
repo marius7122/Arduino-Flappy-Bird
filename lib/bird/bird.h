@@ -15,7 +15,7 @@ class Bird
 public:
     float   posY;
     float   velocity;
-    int     birdLedY;           // row of led which represent bird
+    byte    birdLedY;           // row of led which represent bird
     unsigned long lastUpdate;   // last time when bird position was updated
 
     Display *display;

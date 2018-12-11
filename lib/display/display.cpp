@@ -17,7 +17,7 @@ static Display* Display::getInstance()
     return instance;
 }
 
-void Display::setPixel(int row, int col, bool state)
+void Display::setPixel(byte row, byte col, bool state)
 {
     if(rotated)
         lc.setLed(0, col, row, state);
@@ -25,7 +25,7 @@ void Display::setPixel(int row, int col, bool state)
         lc.setLed(0, row, col, state);
 }
 
-void Display::setRow(int row, byte value)
+void Display::setRow(byte row, byte value)
 {
     if(rotated)
         lc.setColumn(0, row, value);
@@ -33,7 +33,7 @@ void Display::setRow(int row, byte value)
         lc.setRow(0, row, value);
 }
 
-void Display::setCol(int col, byte value)
+void Display::setCol(byte col, byte value)
 {
     if(rotated)
         lc.setRow(0, col, value);

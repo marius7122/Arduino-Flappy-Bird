@@ -1,5 +1,5 @@
 {
-    "C_Cpp.intelliSenseEngineFallback": "Disabled",
+    "C_Cpp.intelliSenseEngineFallback": "Enabled",
     "C_Cpp.errorSquiggles": "Disabled",
     "terminal.integrated.env.windows": {
         "PATH": "C:\\Users\\c_mar\\.platformio\\penv\\Scripts;C:\\Users\\c_mar\\.platformio\\penv;C:\\Program Files (x86)\\Common Files\\Oracle\\Java\\javapath;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;C:\\Windows\\System32\\OpenSSH\\;C:\\Program Files (x86)\\CodeBlocks\\MinGW\\bin;C:\\Program Files\\nodejs\\;C:\\Program Files\\Git\\cmd;C:\\Users\\c_mar\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\c_mar\\AppData\\Local\\atom\\bin;C:\\Users\\c_mar\\AppData\\Roaming\\npm;C:\\Users\\c_mar\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\Program Files (x86)\\Common Files\\Oracle\\Java\\javapath;C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;C:\\Windows\\System32\\OpenSSH\\;C:\\Program Files (x86)\\CodeBlocks\\MinGW\\bin;C:\\Program Files\\nodejs\\;C:\\Program Files\\Git\\cmd;C:\\Users\\c_mar\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Users\\c_mar\\AppData\\Local\\atom\\bin;C:\\Users\\c_mar\\AppData\\Roaming\\npm;C:\\Users\\c_mar\\AppData\\Local\\Programs\\Microsoft VS Code\\bin",

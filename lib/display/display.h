@@ -20,9 +20,9 @@ class Display
 public:
     static Display* getInstance();
 
-    void setPixel(int row, int col, bool state);
-    void setCol(int col, byte value);
-    void setRow(int row, byte value);
+    void setPixel(byte row, byte col, bool state);
+    void setCol(byte col, byte value);
+    void setRow(byte row, byte value);
     void rotate90();
 
 };
