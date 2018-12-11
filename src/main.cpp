@@ -25,9 +25,7 @@ void loop()
     bird.updatePosition();
 
     if(digitalRead(BUTTON_PIN) == LOW)
-    {
         bird.jump();
-    }
 
     delay(50);
 }
