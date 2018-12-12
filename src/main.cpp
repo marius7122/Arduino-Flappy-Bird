@@ -17,21 +17,36 @@ void displayTest()
             delay(50);
             d->setPixel(i, j, 0);
         }
+    
+    for(int i=0; i<8; i++)
+    {
+        d->setCol(i, B11111111);
+        delay(100);
+        d->setCol(i, B00000000);        
+    }
+
+    for(int i=0; i<8; i++)
+    {
+        d->setRow(i, B11111111); 
+        delay(100);
+        d->setRow(i, B00000000); 
+    }
 }
 
 void setup()
 {
     d = Display::getInstance();
+    d->flip();
 
     pinMode(BUTTON_PIN, INPUT_PULLUP);
 
     Serial.begin(9600);
 
-    delay(1000);
+    d->setCol(1, B01000001);
 }
 
 void loop() 
 {
-    displayTest();
+    // displayTest();
     // b.updatePosition();
 }

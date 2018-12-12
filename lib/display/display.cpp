@@ -7,6 +7,7 @@ Display::Display()
     lc.shutdown(0, false);
     lc.setIntensity(0, INTENSITY);
     lc.clearDisplay(0);
+    flipped = false;
 }
 
 static Display* Display::getInstance()
@@ -19,29 +20,25 @@ static Display* Display::getInstance()
 
 void Display::setPixel(byte row, byte col, bool state)
 {
-    if(rotated)
-        lc.setLed(0, col, row, state);
-    else
+    if(!flipped)
         lc.setLed(0, row, col, state);
+    else
+        lc.setLed(0, 7 - row, col, state);
 }
 
 void Display::setRow(byte row, byte value)
 {
-    if(rotated)
-        lc.setColumn(0, row, value);
-    else
-        lc.setRow(0, row, value);
+    for(int col = 0; col < 8; col++)
+        setPixel(row, 7 - col, value & (1 << col));
 }
 
 void Display::setCol(byte col, byte value)
 {
-    if(rotated)
-        lc.setRow(0, col, value);
-    else
-        lc.setColumn(0, col, value);
+    for(int row = 0; row < 8; row++)
+        setPixel(row, col, value & (1 << row));
 }
 
-void Display::rotate90()
+void Display::flip()
 {
-    rotated = true;
+    flipped = true;
 }

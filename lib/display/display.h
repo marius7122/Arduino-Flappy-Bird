@@ -12,7 +12,7 @@
 class Display
 {
     LedControl lc = LedControl(PIN_DIN, PIN_CLK, PIN_LOAD, 1);
-    bool rotated = false;
+    bool flipped;
 
     static Display* instance;
     Display();
@@ -23,7 +23,7 @@ public:
     void setPixel(byte row, byte col, bool state);
     void setCol(byte col, byte value);
     void setRow(byte row, byte value);
-    void rotate90();
+    void flip();
 
 };
 
