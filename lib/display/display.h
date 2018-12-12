@@ -9,6 +9,8 @@
 
 #define INTENSITY 1
 
+#define PIXEL_DISTANCE  10      // virtual distance between pixels
+
 class Display
 {
     LedControl lc = LedControl(PIN_DIN, PIN_CLK, PIN_LOAD, 1);

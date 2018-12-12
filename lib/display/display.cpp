@@ -7,7 +7,7 @@ Display::Display()
     lc.shutdown(0, false);
     lc.setIntensity(0, INTENSITY);
     lc.clearDisplay(0);
-    flipped = false;
+    flipped = true;     // by default display is flipped
 }
 
 static Display* Display::getInstance()
@@ -40,5 +40,5 @@ void Display::setCol(byte col, byte value)
 
 void Display::flip()
 {
-    flipped = true;
+    flipped = !flipped;
 }
