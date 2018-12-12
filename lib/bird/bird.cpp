@@ -1,4 +1,5 @@
 #include "bird.h"
+#include "pipe.h"
 
 Bird::Bird()
 {
@@ -7,12 +8,14 @@ Bird::Bird()
     lastUpdate = 0;
     velocity = 0;
     display = Display::getInstance();
-    
-    Serial.begin(9600);
+    dead = false;
 }
 
 void Bird::updatePosition()
 {
+    if(dead)
+        return;
+
     unsigned long currentTime = millis();
     unsigned long deltaTime = currentTime - lastUpdate;
     
@@ -22,12 +25,19 @@ void Bird::updatePosition()
 
     posY += deltaTime * 0.001 * velocity;
 
-    posY = max(0, posY);
+    if(posY < 0)
+    {
+        dead = true;
+        return;
+    }
+
     posY = min(7.5 * PIXEL_DISTANCE, posY);
 
     int newLedY = (int)(posY / PIXEL_DISTANCE);
     if(newLedY != birdLedY)
         moveBird(newLedY);
+
+    searchColision();
     
     lastUpdate = currentTime;
 }
@@ -52,4 +62,18 @@ void Bird::jump()
 {
     velocity = JUMP_VELOCITY;
     updatePosition();
+}
+
+inline void Bird::searchColision()
+{
+    if(PipeManager::pipeMatrix[birdLedY][POS_X] == true)
+    {
+        dead = true;
+        // Serial.println("DEAD!!");
+    }
+}
+
+bool Bird::isDead()
+{
+    return dead;
 }

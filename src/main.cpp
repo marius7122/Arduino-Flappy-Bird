@@ -1,11 +1,13 @@
 #include <Arduino.h>
 #include "display.h"
-#include "bird.h"
-#include "pipe.h"
+// #include "bird.h"
+// #include "pipe.h"
+#include "gamecontroller.h"
 
-#define BUTTON_PIN 2
 
 Display *display;
+
+GameController game;
 
 void displayTest()
 {
@@ -36,17 +38,10 @@ void setup()
 {
     display = Display::getInstance();
 
-    pinMode(BUTTON_PIN, INPUT_PULLUP);
-
     Serial.begin(9600);
 }
 
-Pipe p;
-
 void loop() 
 {
-    p.updatePosition();
-
-    if(!p.onDisplay())
-        p.reset();
+    game.updateFrame();
 }

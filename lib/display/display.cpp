@@ -1,6 +1,6 @@
 #include "display.h"
 
-static Display* Display::instance = nullptr;
+Display* Display::instance = nullptr;
 
 Display::Display()
 {
@@ -10,7 +10,7 @@ Display::Display()
     flipped = true;     // by default display is flipped
 }
 
-static Display* Display::getInstance()
+Display* Display::getInstance()
 {
     if(instance == nullptr)
         instance = new Display();

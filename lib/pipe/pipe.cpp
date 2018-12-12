@@ -1,5 +1,5 @@
-#include "pipe.h"
 #include <Arduino.h>
+#include "pipe.h"
 
 int Pipe::pipeNumber = 0;
 Display* Pipe::display = Display::getInstance();
@@ -34,7 +34,7 @@ void Pipe::updatePosition()
     if(posX < 0)
     {
         outOfDisplay = true;
-        display->setCol(currPixelPosition, B00000000);  // delete pipe from display
+        deleteFromDisplay();
         currPixelPosition = -1;
         return;
     }
@@ -50,12 +50,12 @@ void Pipe::updatePosition()
 void Pipe::moveTo(byte newPixelPosition)
 {
     // turn off anterior position
-    display->setCol(currPixelPosition, B00000000);
+    deleteFromDisplay();
 
     currPixelPosition = newPixelPosition;
 
     //turn on new positon
-    display->setCol(currPixelPosition, pipeShape);
+    show();
 }
 
 bool Pipe::onDisplay()
@@ -66,4 +66,32 @@ bool Pipe::onDisplay()
 void Pipe::reset()
 {
     *this = Pipe();
+}
+
+void Pipe::deleteFromDisplay()
+{
+    display->setCol(currPixelPosition, B00000000);
+
+    // unmark pipeMatrix
+    for(int row = 0; row < 8; row++)
+        PipeManager::pipeMatrix[row][currPixelPosition] = false;
+}
+
+void Pipe::show()
+{
+    display->setCol(currPixelPosition, pipeShape);
+
+    // mark pipeMatrix
+    for(int row = 0; row < 8; row++)
+        PipeManager::pipeMatrix[row][currPixelPosition] = pipeShape & (1 << row);
+}
+
+bool PipeManager::pipeMatrix[8][8];
+
+PipeManager::PipeManager()
+{
+    int i, j;
+    for(i = 0; i < 8; i++)
+        for(j = 0; j < 8; j++)
+            pipeMatrix[i][j] = 0;
 }

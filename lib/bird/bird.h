@@ -11,19 +11,23 @@
 
 class Bird
 {
-public:
     float   posY;
     float   velocity;
     byte    birdLedY;           // row of led which represent bird
     unsigned long lastUpdate;   // last time when bird position was updated
+    bool dead;
 
     Display *display;
 
+    void searchColision();
+
+public:
     Bird();
     void updatePosition();
     void moveBird(int newLedY);
     void drawBird();
     void jump();
+    bool isDead();
 };
 
 #endif
