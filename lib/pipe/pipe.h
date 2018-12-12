@@ -5,7 +5,8 @@
 
 #define GAP_SIZE    3
 #define START_SPEED PIXEL_DISTANCE
-#define MAX_SPEED   2 * PIXEL_DISTANCE
+#define MAX_SPEED   3 * PIXEL_DISTANCE
+#define SPEED_INCREMENT 0.1
 
 class Pipe
 {

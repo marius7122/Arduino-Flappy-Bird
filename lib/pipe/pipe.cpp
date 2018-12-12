@@ -8,7 +8,7 @@ Pipe::Pipe()
 {
     pipeNumber++;
 
-    speed = START_SPEED + pipeNumber * PIXEL_DISTANCE * 0.1;
+    speed = START_SPEED + pipeNumber * PIXEL_DISTANCE * SPEED_INCREMENT;
     speed = min(speed, MAX_SPEED);
     posX = 8 * PIXEL_DISTANCE;
     outOfDisplay = false;
