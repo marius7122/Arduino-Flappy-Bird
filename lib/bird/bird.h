@@ -15,7 +15,7 @@ class Bird
     float   velocity;
     byte    birdLedY;           // row of led which represent bird
     unsigned long lastUpdate;   // last time when bird position was updated
-    bool dead;
+    bool    dead;
 
     Display *display;
 

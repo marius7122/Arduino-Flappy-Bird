@@ -74,7 +74,7 @@ void Pipe::deleteFromDisplay()
 
     // unmark pipeMatrix
     for(int row = 0; row < 8; row++)
-        PipeManager::pipeMatrix[row][currPixelPosition] = false;
+        PipeManager::setPosition(row, currPixelPosition, false);
 }
 
 void Pipe::show()
@@ -83,15 +83,18 @@ void Pipe::show()
 
     // mark pipeMatrix
     for(int row = 0; row < 8; row++)
-        PipeManager::pipeMatrix[row][currPixelPosition] = pipeShape & (1 << row);
+        PipeManager::setPosition(row, currPixelPosition, pipeShape & (1 << row));
 }
 
-bool PipeManager::pipeMatrix[8][8];
+bool PipeManager::pipeMatrix[8][8] = { {0} };
 
-PipeManager::PipeManager()
+bool PipeManager::getPosition(byte i, byte j)
 {
-    int i, j;
-    for(i = 0; i < 8; i++)
-        for(j = 0; j < 8; j++)
-            pipeMatrix[i][j] = 0;
+    Serial.print("pipemanager: ");
+    Serial.println(pipeMatrix[i][j]);
+    return pipeMatrix[i][j];
+}
+void PipeManager::setPosition(byte i, byte j, bool state)
+{
+    pipeMatrix[i][j] = state;
 }

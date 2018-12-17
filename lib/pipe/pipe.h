@@ -34,9 +34,11 @@ public:
 
 class PipeManager
 {
-public:
     static bool pipeMatrix[8][8];
-    PipeManager();
+public:
+    static bool getPosition(byte i, byte j);
+    static void setPosition(byte i, byte j, bool state);
+
 };
 
 #endif

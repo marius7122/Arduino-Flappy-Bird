@@ -3,9 +3,9 @@
 
 #include "LedControl.h"
 
-#define PIN_DIN 12
-#define PIN_LOAD 10
-#define PIN_CLK 11
+#define PIN_DIN 12      // yellow
+#define PIN_LOAD 10     // white
+#define PIN_CLK 11      // orange
 
 #define INTENSITY 1
 

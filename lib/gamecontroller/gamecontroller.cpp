@@ -4,12 +4,21 @@ GameController::GameController()
 {
     score = 0;
     gameOver = false;
+    gameStarted = false;
 
     pinMode(JUMP_BUTTON_PIN, INPUT_PULLUP);
+
+    Serial.println("Press a button to start the game!");
 }
 
 void GameController::updateFrame()
 {
+    // if(!gameStarted && !digitalRead(JUMP_BUTTON_PIN))
+    //    startGame();
+
+    // if(!gameStarted)
+    //    return;
+
     if(gameOver)
         return;
 
@@ -30,4 +39,10 @@ void GameController::updateFrame()
     pipe.updatePosition();
     if(!pipe.onDisplay())
         pipe.reset();
+}
+
+void GameController::startGame()
+{
+    gameStarted = true;
+    Serial.println("Game started!");
 }

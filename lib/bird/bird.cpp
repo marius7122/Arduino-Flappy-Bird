@@ -37,7 +37,11 @@ void Bird::updatePosition()
     if(newLedY != birdLedY)
         moveBird(newLedY);
 
-    searchColision();
+    if(PipeManager::getPosition(birdLedY, POS_X) == true)
+    {
+        dead = true;
+        // Serial.println("DEAD!!");
+    }
     
     lastUpdate = currentTime;
 }
@@ -64,9 +68,11 @@ void Bird::jump()
     updatePosition();
 }
 
-inline void Bird::searchColision()
+void Bird::searchColision()
 {
-    if(PipeManager::pipeMatrix[birdLedY][POS_X] == true)
+    
+    // if the bird hit a pipe
+    if(PipeManager::getPosition(birdLedY, POS_X) == true)
     {
         dead = true;
         // Serial.println("DEAD!!");

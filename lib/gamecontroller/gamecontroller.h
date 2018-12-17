@@ -13,8 +13,11 @@ class GameController
     Pipe pipe;
     int score;
     bool gameOver;
+    bool gameStarted;
 
     unsigned long lastJump;
+
+    void startGame();
 
 public:
     static bool pipeMatrix[8][8];

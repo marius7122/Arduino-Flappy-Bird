@@ -1,14 +1,10 @@
 #include <Arduino.h>
 #include "display.h"
-// #include "bird.h"
-// #include "pipe.h"
 #include "gamecontroller.h"
-
-
-Display *display;
 
 GameController game;
 
+Display *display;
 void displayTest()
 {
     for(int i=0; i<8; i++)
@@ -39,6 +35,8 @@ void setup()
     display = Display::getInstance();
 
     Serial.begin(9600);
+
+    delay(50);
 }
 
 void loop() 
