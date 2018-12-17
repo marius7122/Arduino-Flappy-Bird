@@ -28,6 +28,7 @@ public:
     void drawBird();
     void jump();
     bool isDead();
+    void startMove();
 };
 
 #endif

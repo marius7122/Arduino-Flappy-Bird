@@ -30,15 +30,18 @@ public:
     void updatePosition();
     bool onDisplay();
     void reset();
+    void startMove();
 };
 
 class PipeManager
 {
     static bool pipeMatrix[8][8];
+    static byte birdPositionX, birdPositionY;
 public:
     static bool getPosition(byte i, byte j);
     static void setPosition(byte i, byte j, bool state);
-
+    static void setBirdPosition(byte newPosX, byte newPosY);
 };
+
 
 #endif

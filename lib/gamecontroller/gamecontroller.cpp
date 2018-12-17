@@ -13,11 +13,11 @@ GameController::GameController()
 
 void GameController::updateFrame()
 {
-    // if(!gameStarted && !digitalRead(JUMP_BUTTON_PIN))
-    //    startGame();
+    if(!gameStarted && !digitalRead(JUMP_BUTTON_PIN))
+       startGame();
 
-    // if(!gameStarted)
-    //    return;
+    if(!gameStarted)
+       return;
 
     if(gameOver)
         return;
@@ -43,6 +43,11 @@ void GameController::updateFrame()
 
 void GameController::startGame()
 {
+    delay(100);
+
     gameStarted = true;
+    pipe.startMove();
+    bird.startMove();
+    
     Serial.println("Game started!");
 }

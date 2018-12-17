@@ -14,11 +14,11 @@ Pipe::Pipe()
     outOfDisplay = false;
     lastUpdate = millis();
 
-    gapPosition = random(0, 8 - GAP_SIZE + 1);  // +1 because is exclusive
+    gapPosition = random(0, 8 - GAP_SIZE + 1);      // +1 because is exclusive
 
     pipeShape = B11111111;
     for(int i = 0; i < GAP_SIZE; i++)
-        pipeShape -= (1 << (i + gapPosition));     // unset bit i
+        pipeShape -= (1 << (i + gapPosition));      // unset bit i
 }
 
 void Pipe::updatePosition()
@@ -70,31 +70,58 @@ void Pipe::reset()
 
 void Pipe::deleteFromDisplay()
 {
-    display->setCol(currPixelPosition, B00000000);
+    byte col = currPixelPosition;
+    byte birdPositionX = PipeManager::birdPositionX;
+    byte birdPositionY = PipeManager::birdPositionY;
 
-    // unmark pipeMatrix
-    for(int row = 0; row < 8; row++)
-        PipeManager::setPosition(row, currPixelPosition, false);
+    for(byte row = 0; row < 8; row++)
+    {
+        PipeManager::setPosition(row, col, false);
+        
+        // we don want to turn off bird led
+        if(row != birdPositionX || col != birdPositionY)
+            display->setPixel(row, col, false);
+    }
 }
 
 void Pipe::show()
 {
-    display->setCol(currPixelPosition, pipeShape);
+    byte col = currPixelPosition;
+    byte birdPositionX = PipeManager::birdPositionX;
+    byte birdPositionY = PipeManager::birdPositionY;
+    bool state;
 
-    // mark pipeMatrix
-    for(int row = 0; row < 8; row++)
-        PipeManager::setPosition(row, currPixelPosition, pipeShape & (1 << row));
+    for(byte row = 0; row < 8; row++)
+    {
+        state = pipeShape & (1 << row);
+
+        PipeManager::setPosition(row, col, state);
+
+        // we don want to turn off bird led
+        if(row != birdPositionX || col != birdPositionY)
+            display->setPixel(row, col, state);
+    }
+}
+
+void Pipe::startMove()
+{
+    lastUpdate = millis();
 }
 
 bool PipeManager::pipeMatrix[8][8] = { {0} };
+byte birdPositionX, birdPositionY;
 
 bool PipeManager::getPosition(byte i, byte j)
 {
-    Serial.print("pipemanager: ");
-    Serial.println(pipeMatrix[i][j]);
+    delay(1);   // magic, without this doesn't work
     return pipeMatrix[i][j];
 }
 void PipeManager::setPosition(byte i, byte j, bool state)
 {
     pipeMatrix[i][j] = state;
+}
+void PipeManager::setBirdPosition(byte newPosX, byte newPosY)
+{
+    birdPositionX = newPosX;
+    birdPositionY = newPosY;
 }

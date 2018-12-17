@@ -83,3 +83,8 @@ bool Bird::isDead()
 {
     return dead;
 }
+
+void Bird::startMove()
+{
+    lastUpdate = millis();
+}
