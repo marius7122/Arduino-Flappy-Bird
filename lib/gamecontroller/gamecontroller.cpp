@@ -1,4 +1,7 @@
 #include "gamecontroller.h"
+#include <EEPROM.h>
+
+#define HIGHSCORE_ADRESS 128
 
 GameController::GameController()
 {
@@ -10,10 +13,19 @@ void GameController::initialize()
     score = 0;
     gameOver = false;
     gameStarted = false;
+    display = Display::getInstance();
 
     pinMode(JUMP_BUTTON_PIN, INPUT_PULLUP);
 
-    Serial.println("Press a button to start the game!");
+    // Serial.println("Press a button to start the game!");
+    display->clearLcd();
+    display->printOnLcd(0, "Press a button!");
+
+    byte highscore = EEPROM.read(HIGHSCORE_ADRESS);
+    char buffer[10];
+    itoa(highscore, buffer, 10);
+    display->printOnLcd(1, "Highscore:");
+    display->printOnLcd(1, buffer, 12);
 }
 
 void GameController::updateFrame()
@@ -44,7 +56,18 @@ void GameController::updateFrame()
     if(bird.isDead())
     {
         gameOver = true;
-        Serial.println("GAMEOVER!");
+        display->clearLcd();
+        display->printOnLcd(0, "Gameover!");
+        display->printOnLcd(1, "Score: ");
+        score = pipe.getScore();
+        char buffer[10];
+        itoa(score, buffer, 10);
+        display->printOnLcd(1, buffer, 10);
+
+        byte highscore = EEPROM.read(HIGHSCORE_ADRESS);
+        if(score > highscore)
+            EEPROM.write(HIGHSCORE_ADRESS, score);
+
         return;
     }
 
@@ -60,12 +83,12 @@ void GameController::startGame()
     bird.startMove();
     delay(100);
     
-    Serial.println("Game started!");
+    // Serial.println("Game started!");
 }
 
 void GameController::restart()
 {
-    Serial.println("Game restart!");
+    // Serial.println("Game restart!");
 
     bird.reset();
     pipe.restart();

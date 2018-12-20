@@ -3,6 +3,7 @@
 
 #include "bird.h"
 #include "pipe.h"
+#include "display.h"
 
 #define JUMP_BUTTON_PIN 2
 #define JUMP_TIME       200      //minimum time between jumps in miliseconds
@@ -11,11 +12,13 @@ class GameController
 {
     Bird bird;
     Pipe pipe;
-    int score;
+    byte score;
     bool gameOver;
     bool gameStarted;
 
     unsigned long lastJump;
+
+    Display *display;
 
     void startGame();
     void restart();

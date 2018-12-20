@@ -21,6 +21,8 @@ class Pipe
     
     static Display *display;
     static int pipeNumber;  // number of pipes, used to constantly increase pipe moving speed
+    static byte scoreCnt;
+
 
     void moveTo(byte newPixelPosition);
     void deleteFromDisplay();
@@ -34,6 +36,7 @@ public:
     void reset();
     void restart();
     void startMove();
+    byte getScore();
 };
 
 class PipeManager

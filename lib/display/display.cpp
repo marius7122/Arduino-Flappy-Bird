@@ -4,10 +4,21 @@ Display* Display::instance = nullptr;
 
 Display::Display()
 {
+    // led matrix init
     lc.shutdown(0, false);
     lc.setIntensity(0, INTENSITY);
     lc.clearDisplay(0);
     flipped = true;     // by default display is flipped
+
+    // lcd init
+    lcd.begin(16, 2);
+    lcd.clear();
+    lcd.setCursor(2, 1);
+
+    lcd.print("HELLO WORLD!");
+
+    pinMode(PIN_V0, OUTPUT);
+    analogWrite(PIN_V0, LCD_INTENSITY);
 }
 
 Display* Display::getInstance()
@@ -41,4 +52,15 @@ void Display::setCol(byte col, byte value)
 void Display::flip()
 {
     flipped = !flipped;
+}
+
+void Display::printOnLcd(byte row, const char *msg, byte col = 0)
+{
+    lcd.setCursor(col, row);
+    lcd.print(msg);
+}
+
+void Display::clearLcd()
+{
+    lcd.clear();
 }

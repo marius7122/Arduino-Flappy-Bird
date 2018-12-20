@@ -2,6 +2,7 @@
 #include "pipe.h"
 
 int Pipe::pipeNumber = 0;
+byte Pipe::scoreCnt = 0;
 Display* Pipe::display = Display::getInstance();
 
 Pipe::Pipe()
@@ -62,6 +63,12 @@ void Pipe::moveTo(byte newPixelPosition)
 
     currPixelPosition = newPixelPosition;
 
+    // pipe is behind bird
+    if(currPixelPosition == 0)
+    {
+        scoreCnt++;
+    }
+
     //turn on new positon
     show();
 }
@@ -73,14 +80,16 @@ bool Pipe::onDisplay()
 
 void Pipe::reset()
 {
-    deleteFromDisplay();
     initialize();
+    inactive = false;
 }
 
 void Pipe::restart()
 {
     pipeNumber = 0;
-    reset();
+    scoreCnt = 0;
+    deleteFromDisplay();
+    initialize();
 }
 
 void Pipe::deleteFromDisplay()
@@ -122,6 +131,11 @@ void Pipe::startMove()
 {
     inactive = false;
     lastUpdate = millis();
+}
+
+byte Pipe::getScore()
+{
+    return scoreCnt;
 }
 
 bool PipeManager::pipeMatrix[8][8] = { {0} };
