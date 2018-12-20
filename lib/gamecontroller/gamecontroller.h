@@ -18,6 +18,8 @@ class GameController
     unsigned long lastJump;
 
     void startGame();
+    void restart();
+    void initialize();
 
 public:
     static bool pipeMatrix[8][8];

@@ -6,6 +6,11 @@ Display* Pipe::display = Display::getInstance();
 
 Pipe::Pipe()
 {
+    initialize();
+}
+
+void Pipe::initialize()
+{
     pipeNumber++;
 
     speed = START_SPEED + pipeNumber * PIXEL_DISTANCE * SPEED_INCREMENT;
@@ -13,6 +18,7 @@ Pipe::Pipe()
     posX = 8 * PIXEL_DISTANCE;
     outOfDisplay = false;
     lastUpdate = millis();
+    inactive = true;
 
     gapPosition = random(0, 8 - GAP_SIZE + 1);      // +1 because is exclusive
 
@@ -24,6 +30,8 @@ Pipe::Pipe()
 void Pipe::updatePosition()
 {
     if(outOfDisplay)
+        return;
+    if(inactive)
         return;
 
     unsigned long currentTime = millis();
@@ -65,7 +73,14 @@ bool Pipe::onDisplay()
 
 void Pipe::reset()
 {
-    *this = Pipe();
+    deleteFromDisplay();
+    initialize();
+}
+
+void Pipe::restart()
+{
+    pipeNumber = 0;
+    reset();
 }
 
 void Pipe::deleteFromDisplay()
@@ -79,7 +94,7 @@ void Pipe::deleteFromDisplay()
         PipeManager::setPosition(row, col, false);
         
         // we don want to turn off bird led
-        if(row != birdPositionX || col != birdPositionY)
+        if(col != birdPositionX || row != birdPositionY)
             display->setPixel(row, col, false);
     }
 }
@@ -98,18 +113,20 @@ void Pipe::show()
         PipeManager::setPosition(row, col, state);
 
         // we don want to turn off bird led
-        if(row != birdPositionX || col != birdPositionY)
+        if(col != birdPositionX || row != birdPositionY)
             display->setPixel(row, col, state);
     }
 }
 
 void Pipe::startMove()
 {
+    inactive = false;
     lastUpdate = millis();
 }
 
 bool PipeManager::pipeMatrix[8][8] = { {0} };
-byte birdPositionX, birdPositionY;
+byte PipeManager::birdPositionX;
+byte PipeManager::birdPositionY;
 
 bool PipeManager::getPosition(byte i, byte j)
 {

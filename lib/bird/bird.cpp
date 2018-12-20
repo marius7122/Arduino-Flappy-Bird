@@ -3,22 +3,31 @@
 
 Bird::Bird()
 {
+    initialize();
+}
+
+void Bird::initialize()
+{
     birdLedY = START_LED_Y;
     posY = START_LED_Y * PIXEL_DISTANCE;
-    lastUpdate = 0;
+    lastUpdate = millis();
     velocity = 0;
     display = Display::getInstance();
     dead = false;
+    inactive = true;
+    PipeManager::setBirdPosition(POS_X, birdLedY);
 }
 
 void Bird::updatePosition()
 {
     if(dead)
         return;
+    if(inactive)
+        return;
 
     unsigned long currentTime = millis();
     unsigned long deltaTime = currentTime - lastUpdate;
-    
+
     velocity -= deltaTime * 0.001 * GRAVITY;
     if(velocity > 0 && velocity < MIN_SPEED)
         velocity = -MIN_SPEED;
@@ -27,6 +36,7 @@ void Bird::updatePosition()
 
     if(posY < 0)
     {
+        Serial.println("TOUCHED GROUND => DEAD!");
         dead = true;
         return;
     }
@@ -37,11 +47,7 @@ void Bird::updatePosition()
     if(newLedY != birdLedY)
         moveBird(newLedY);
 
-    if(PipeManager::getPosition(birdLedY, POS_X) == true)
-    {
-        dead = true;
-        // Serial.println("DEAD!!");
-    }
+    searchColision();
     
     lastUpdate = currentTime;
 }
@@ -51,6 +57,7 @@ void Bird::moveBird(int newLedY)
     // turn off old position
     display->setPixel(birdLedY, POS_X, false);
 
+
     birdLedY = newLedY;
 
     // draw new position
@@ -59,6 +66,7 @@ void Bird::moveBird(int newLedY)
 
 void Bird::drawBird()
 {
+    PipeManager::setBirdPosition(POS_X, birdLedY);
     display->setPixel(birdLedY, POS_X, true);
 }
 
@@ -75,7 +83,7 @@ void Bird::searchColision()
     if(PipeManager::getPosition(birdLedY, POS_X) == true)
     {
         dead = true;
-        // Serial.println("DEAD!!");
+        Serial.println("PIPE HIT => DEAD!!");
     }
 }
 
@@ -87,4 +95,11 @@ bool Bird::isDead()
 void Bird::startMove()
 {
     lastUpdate = millis();
+    inactive = false;
+}
+
+void Bird::reset()
+{
+    display->setPixel(birdLedY, POS_X, false);
+    initialize();
 }

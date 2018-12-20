@@ -2,6 +2,11 @@
 
 GameController::GameController()
 {
+    initialize();
+}
+
+void GameController::initialize()
+{
     score = 0;
     gameOver = false;
     gameStarted = false;
@@ -13,12 +18,19 @@ GameController::GameController()
 
 void GameController::updateFrame()
 {
+    // start the game
     if(!gameStarted && !digitalRead(JUMP_BUTTON_PIN))
        startGame();
 
+    // game not started
     if(!gameStarted)
        return;
 
+    // restart the game
+    if(gameOver && !digitalRead(JUMP_BUTTON_PIN))
+        restart();
+
+    // game over
     if(gameOver)
         return;
 
@@ -43,11 +55,20 @@ void GameController::updateFrame()
 
 void GameController::startGame()
 {
-    delay(100);
-
     gameStarted = true;
     pipe.startMove();
     bird.startMove();
+    delay(100);
     
     Serial.println("Game started!");
+}
+
+void GameController::restart()
+{
+    Serial.println("Game restart!");
+
+    bird.reset();
+    pipe.restart();
+    initialize();
+    delay(500);
 }
