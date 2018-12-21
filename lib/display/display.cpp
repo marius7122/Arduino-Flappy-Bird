@@ -54,6 +54,14 @@ void Display::flip()
     flipped = !flipped;
 }
 
+void Display::clear()
+{
+    byte line, col;
+    for(line = 0; line < 8; line++)
+        for(col = 0; col < 8; col++)
+            setPixel(line, col, false);
+}
+
 void Display::printOnLcd(byte row, const char *msg, byte col = 0)
 {
     lcd.setCursor(col, row);

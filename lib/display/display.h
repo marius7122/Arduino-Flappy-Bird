@@ -42,9 +42,9 @@ public:
     void setCol(byte col, byte value);
     void setRow(byte row, byte value);
     void flip();
+    void clear();
     void printOnLcd(byte row, const char *msg, byte col = 0);
     void clearLcd();
-
 };
 
 #endif

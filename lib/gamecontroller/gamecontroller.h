@@ -17,12 +17,15 @@ class GameController
     bool gameStarted;
 
     unsigned long lastJump;
+    unsigned long lastScoreUpdate;
 
     Display *display;
 
     void startGame();
     void restart();
     void initialize();
+    void fadeOut();
+    void resetHighscore();
 
 public:
     static bool pipeMatrix[8][8];
