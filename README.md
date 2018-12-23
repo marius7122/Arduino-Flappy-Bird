@@ -1,7 +1,8 @@
 # Arduino Flappy Bird
 <img align="right" width="150" src="images/Game.jpeg">
 <img align="right" width="150" src="images/Project.jpeg">
-Arduino Flappy Bird is a clone of Flappy Bird game, but using as display an 8x8 led matrix, and programmed on an Arduino.
+Arduino Flappy Bird is a clone of Flappy Bird game, but using as display an 8x8 led matrix and Arduino Uno microcontroller.  
+**Video:** https://www.youtube.com/watch?v=_SPNHZvE2DY
 
 ## Structure
 **lib** folder contains almost all the code:
