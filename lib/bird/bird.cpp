@@ -36,7 +36,6 @@ void Bird::updatePosition()
 
     if(posY < 0)
     {
-        // Serial.println("TOUCHED GROUND => DEAD!");
         dead = true;
         return;
     }
@@ -83,7 +82,6 @@ void Bird::searchColision()
     if(PipeManager::getPosition(birdLedY, POS_X) == true)
     {
         dead = true;
-        // Serial.println("PIPE HIT => DEAD!!");
     }
 }
 

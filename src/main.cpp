@@ -33,10 +33,6 @@ void displayTest()
 void setup()
 {
     display = Display::getInstance();
-
-    // Serial.begin(9600);
-
-    delay(50);
 }
 
 void loop() 

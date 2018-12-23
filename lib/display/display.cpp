@@ -15,8 +15,6 @@ Display::Display()
     lcd.clear();
     lcd.setCursor(2, 1);
 
-    lcd.print("HELLO WORLD!");
-
     pinMode(PIN_V0, OUTPUT);
     analogWrite(PIN_V0, LCD_INTENSITY);
 }

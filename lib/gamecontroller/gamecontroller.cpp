@@ -20,7 +20,6 @@ void GameController::initialize()
 
     pinMode(JUMP_BUTTON_PIN, INPUT_PULLUP);
 
-    // Serial.println("Press a button to start the game!");
     display->clearLcd();
     display->printOnLcd(0, "Press a button!");
 
@@ -108,14 +107,10 @@ void GameController::startGame()
     pipe.startMove();
     bird.startMove();
     delay(100);
-    
-    // Serial.println("Game started!");
 }
 
 void GameController::restart()
 {
-    // Serial.println("Game restart!");
-
     bird.reset();
     pipe.restart();
     initialize();
